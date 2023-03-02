@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "go": "tsc && node dist/index.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "got": "^12.5.3",
+    "mongodb": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/got": "^9.6.12",
+    "@types/mongodb": "^4.0.7"
+  }
+}
