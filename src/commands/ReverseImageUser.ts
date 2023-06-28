@@ -1,4 +1,4 @@
-import { ContextMenuCommandBuilder, Interaction, ApplicationCommandType, EmbedBuilder } from "discord.js";
+import { ContextMenuCommandBuilder, Interaction, ApplicationCommandType, EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import { ReverseImageSearch } from "../shared/ReverseImageSearch.js";
 import { CommandType } from "../structs/bases/BaseCommand.js";
 import { ContextMenuBase } from "../structs/bases/ContextMenu.js";
@@ -10,6 +10,7 @@ export class ReverseImageUser implements ContextMenuBase {
     public builder() {
         return new ContextMenuCommandBuilder()
             .setName(this.name)
+            .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks)
             .setType(ApplicationCommandType.User);
     }
 
@@ -25,6 +26,14 @@ export class ReverseImageUser implements ContextMenuBase {
         const embed = new EmbedBuilder()
             .setTitle("User Search Results")
             .setColor("#275dd8")
+
+        if (response == null) {
+            embed.setDescription("Too many searches, please try again later.");
+            await interaction.editReply({
+                embeds: [embed]
+            });
+            return;
+        }
 
         if (response.results[0] && parseFloat(response.results[0].header.similarity) > 65) {
             embed.setImage(url as string);

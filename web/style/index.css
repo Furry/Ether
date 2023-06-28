@@ -1,0 +1,156 @@
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-9');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Helvetica 25 UltraLight', sans-serif;
+    font-family: 'Helvetica 35 Thin', sans-serif;
+    font-family: 'Helvetica 45 Light', sans-serif;
+    font-family: 'Helvetica 55 Roman', sans-serif;
+    font-family: 'Helvetica 65 Medium', sans-serif;
+}
+
+.wrapper {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.banner {
+    background: url("http://the.protogen.expert/s/OGk4cz.jpeg");
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.body-text {
+    position: relative;
+    z-index: 10;
+    padding-top: 7rem;
+}
+
+.body-text h1 {
+    font-family: sans-serif;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    padding-top: 2rem;
+}
+
+.body-text p {
+    font-size: 1.2rem;
+    font-family: sans-serif;
+    color: #777;
+    padding: 2rem 0;
+    line-height: 2rem;
+}
+
+nav {
+    background: none;
+    min-height: 85px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 20;
+    transition: 0.35s all ease;
+}
+
+nav ul {
+    list-style: none;
+    padding: 2rem;
+    transition: 0.35s all ease;
+    /* Vertical center all children */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul li {
+    display: inline-block;
+    color: rgb(108, 189, 255);
+    /* bold */
+    font-weight: 500;
+    /* uppercase */
+    font-size: 1.2rem;
+    padding: 0 1rem;
+    font-family: sans-serif;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+}
+
+.nav-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    /* A circle container for the pfp */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.discord-login {
+    background: #7289da;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    /* text-decoration: none; */
+    /* font-weight: 600; */
+    /* text-transform: uppercase; */
+    letter-spacing: 0.2rem;
+    transition: 0.2s all ease-in-out;
+
+    /* Flex and vert center children */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scrolled {
+    min-height: 10px;
+    /* Black with a blur on background */
+    background: rgba(0, 0, 0, 0.5);
+    /* -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px); */
+
+    transition: 0.35s all ease;
+}
+
+.scrolled ul {
+    padding: 1rem 2rem;
+    transition: 0.35s all ease;
+}
+
+.scrolled li {
+    color: white;
+    transition: 0.2s all ease-in-out;
+}
+
+.discord {
+    background-color:  #7289d9;
+    color: white;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.discord > svg {
+    /* width:  1.2rem */
+    height: 1.2rem;
+    width: 1.2rem;
+    /* offset it down a little */
+    margin-bottom: -3px;
+}

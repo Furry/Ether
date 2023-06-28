@@ -78,10 +78,11 @@ export interface SearchResponse {
 }
 
 export class ReverseImageSearch {
-    public static async search(url: string, nsfw: boolean = false): Promise<SearchResponse> {
+    public static async search(url: string, nsfw: boolean = false): Promise<SearchResponse | null> {
         const response = await got.get(
             `https://saucenao.com/search.php?db=999&output_type=2&api_key=${process.env.SAUCENAO_KEY}&testmode=1&numres=16&hide=${nsfw ? 0 : 3}&url=${url}`
         );
+
         return JSON.parse(response.body);
     }
 
