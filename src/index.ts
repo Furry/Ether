@@ -10,6 +10,7 @@ import { CompoundClient } from "./structs/CompoundClient.js";
 import { Intervals } from "./structs/Intervals.js";
 import { Logger } from "./structs/Logger.js";
 import { Threads } from "./commands/Threads.js";
+import { Ruin } from "./guildactions/ruin.js";
 
 dotenv.config();
 const args = process.argv.slice(2)
@@ -33,6 +34,8 @@ client.registerCommand("Find Icon Source", new ReverseImageUser());
 client.registerCommand("Find Image Source", new ReverseImageMessage());
 client.registerCommand("prune", new Prune());
 client.registerCommand("threads", new Threads());
+
+new Ruin(client).start();
 
 client.start(
     process.env.DISCORD_TOKEN as string
