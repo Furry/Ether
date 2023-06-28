@@ -56,7 +56,9 @@ export class CompoundClient extends Client {
             })
         })
 
-        this.on(Events.ThreadMembersUpdate, (members, removed, thread) => {
+        this.on(Events.ThreadMembersUpdate, async (members, removed, thread) => {
+            Logger.info(`Thread ${thread.name} members updated`);
+            await thread.fetch(true);
             CompoundClient.instance.db.direct.collection("threads").updateOne({id: thread.id}, {
                 $set: {
                     members: thread.members.cache.map(m => m.id)
