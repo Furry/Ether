@@ -115,6 +115,7 @@ export class Ruin {
         let post = await (message.client.channels.cache.get(this.crosspostChannelId) as TextChannel).send({
             content: this.trimContent(message.content),
             embeds: [embed],
+            files: message.attachments.map((a) => a.url),
             // Approve, Deny
             components: [
                 {
