@@ -41,7 +41,6 @@ client.start(
     process.env.DISCORD_TOKEN as string
 ).then(async () => {
     Logger.info("Client started.");
-    await client.loadGuildMembers("933683767908913222");
     Intervals.startStatus(client);
     if (args.includes("--flushcommands")) {
         await client.flushCommands();
