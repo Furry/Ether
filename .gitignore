@@ -1,0 +1,7 @@
+# Dirs
+/target
+
+# Files
+.env
+.vscode
+Cargo.lock

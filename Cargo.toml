@@ -1,0 +1,30 @@
+[package]
+name = "ether"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# Code Generation
+dotenv = "0.15.0"
+dotenv_codegen = "0.15.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.103"
+once_cell = "1.8.0"
+
+# Core
+serenity = { version = "0.11", default-features = false, features = [
+    "builder", "cache", "client", "gateway", "http", "model", "utils", "rustls_backend",
+    "utils"
+]}
+tokio = { version = "1.21.2", features = ["macros", "rt-multi-thread"] }
+reqwest = { version = "0.11.18", features = ["json"] }
+mongodb = "2.6.0"
+
+# Supporting Libraries
+sentry = "0.31.5"
+anyhow = "1.0.72"
+sysinfo = "0.29.6"
+poise = "0.5.5"
+rand = "0.8.5"
