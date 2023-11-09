@@ -4,4 +4,5 @@
 
 pub mod link_traversal;
 pub mod renderer;
+pub mod paginate;
 pub mod embeds;

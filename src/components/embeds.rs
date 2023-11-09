@@ -1,4 +1,4 @@
-use serenity::builder::{CreateEmbed, CreateEmbedFooter};
+use serenity::builder::{CreateEmbed};
 use rand::seq::SliceRandom;
 
 // const vec of &str

@@ -1,8 +1,14 @@
 pub mod custom_commands;
+pub mod guildspecific;
 pub mod components;
 pub mod commands;
 pub mod database;
+pub mod events;
+pub mod structs;
 
+use std::sync::Arc;
+
+use events::{interactions::handle_interaction_create, messages::handle_message_update};
 use tokio::sync::Mutex;
 use dotenv_codegen::dotenv;
 use sentry;
@@ -10,13 +16,17 @@ use serenity::http::Http;
 use serenity::model::prelude::*;
 use mongodb::{ Client, options::ClientOptions };
 
+
 use once_cell::sync::Lazy;
+
+use crate::events::messages::handle_message_create;
 
 pub static MONGO: Lazy<Mutex<Option<Client>>> = Lazy::new(|| Mutex::new(None));
 pub type Error = Box<dyn std::error::Error + Send + Sync>;
-pub type Context<'a> = poise::Context<'a, Data, Error>;
-
-pub struct Data {} // User data, accessible through all command invocations
+pub type Context<'a> = poise::Context<'a, SessionData, Error>;
+pub struct SessionData {
+    pub cache: database::cache::ProfileCache
+} // User data, accessible through all command invocations
 
 #[tokio::main]
 async fn main() {
@@ -44,7 +54,11 @@ async fn main() {
 
     // ! POISE CONFIGURATION
     let options = poise::FrameworkOptions {
-        commands: vec![commands::meta::stats::stats(), commands::profile::profile()],
+        commands: vec![
+            commands::meta::stats::stats(), commands::profile::profile(),
+            commands::administration::warnings::warn(),
+            commands::administration::warnings::warnings()
+        ],
         prefix_options: poise::PrefixFrameworkOptions::default(),
 
         pre_command: |ctx| {
@@ -65,10 +79,14 @@ async fn main() {
             })
         }),
 
-        event_handler: |_ctx, event, _framework, _data| {
+        event_handler: |ctx, event, _framework, data| {
             Box::pin(async move {
-                println!("Got an event in event handler: {:?}", event.name());
-                Ok(())
+                return match event {
+                    poise::Event::Message { new_message } => Ok(handle_message_create(ctx, new_message, data).await?),
+                    poise::Event::InteractionCreate { interaction } => Ok(handle_interaction_create(ctx, interaction, data).await?),
+                    poise::Event::MessageUpdate { old_if_available, new, event } => Ok(handle_message_update(ctx, old_if_available, Arc::new(new), event, data).await?),
+                    _ => Ok(())
+                };
             })
         },
 
@@ -82,8 +100,8 @@ async fn main() {
             Box::pin(async move {
                 println!("Logged in as {}", _ready.user.name);
                 poise::builtins::register_globally(ctx, &framework.options().commands).await?;
-                Ok(Data {
-
+                Ok(SessionData {
+                    cache: database::cache::populated_cache().await?
                 })
             })
         })

@@ -1,3 +1,3 @@
-pub async fn render(content: String) {
+pub async fn render(_content: String) {
     
 }

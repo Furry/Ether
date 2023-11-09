@@ -1,7 +1,7 @@
-use poise::{self, CreateReply};
-use serenity::builder::CreateEmbed;
+use poise::{self};
+
 use crate::{ Context, Error };
-use sysinfo::{NetworkExt, NetworksExt, ProcessExt, System, SystemExt, CpuExt};
+use sysinfo::{ System, SystemExt, CpuExt };
 use std::time::SystemTime;
 use std::env;
 
@@ -24,7 +24,6 @@ pub async fn stats(
     ctx.send(|b| {
         b.embed(|e| {
             crate::components::embeds::default(e);
-            dbg!(5);
             e.field("🌱 Environment", format!(
                 "Rust Version: {}\nPlatform: {}\nSerenity: {}",
                 env::var("RUST_VERSION")
@@ -40,7 +39,7 @@ pub async fn stats(
                     format!("One way latency: ``{}``", u128::to_string(&elapsed))
             ), true)
         })
-    }).await.expect("Could not send epherial reply in 'status'");
+    }).await.expect("Could not send reply in 'status'");
 
     Ok(())
 }
